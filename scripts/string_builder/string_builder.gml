@@ -7,6 +7,11 @@ function StringBuilder(text = "") constructor {
         return self;
     };
     
+    self.Clear = function() {
+        buffer_seek(self.buffer, buffer_seek_start, 0);
+        return self;
+    };
+    
     self.toString = function() {
         buffer_write(self.buffer, buffer_u8, 0);
         var output = buffer_peek(self.buffer, 0, buffer_text);
