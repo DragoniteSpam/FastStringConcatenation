@@ -1,14 +1,14 @@
-/// @param args... {string}
+/// @description "Fast" string concatenation; I've found that this isn't actually faster unless you concatenate a LOT of strings together but ymmv
+/// @param strings... {string}
 /// @return {string}
 function string_cat_fast() {
     gml_pragma("forceinline");
-    static buffer = buffer_create(4096, buffer_grow, 1);
-    buffer_seek(buffer, buffer_seek_start, 0);
+    static builder = new StringBuilder();
+    builder.Clear();
     
     for (var i = 0; i < argument_count; i++) {
-        buffer_write(buffer, buffer_text, string(argument[i]));
+        builder.Append(argument[i]);
     }
-    buffer_write(buffer, buffer_u8, 0);
     
-    return buffer_peek(buffer, 0, buffer_text);
+    return builder.toString();
 }
