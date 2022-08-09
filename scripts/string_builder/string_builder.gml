@@ -27,9 +27,10 @@ function StringBuilder(text = "") constructor {
 global.__builder_refs = ds_list_create();
 
 call_later(10, time_source_units_seconds, function() {
-    for (var i = ds_list_size(global.__builder_refs) - 1; i >= 0; i++) {
-        if (!weak_ref_alive(global.__builder_refs[i])) {
-            buffer_delete(global.__builder_refs[i].buffer);
+    for (var i = ds_list_size(global.__builder_refs) - 1; i >= 0; i--) {
+        if (!weak_ref_alive(global.__builder_refs[| i])) {
+            buffer_delete(global.__builder_refs[| i].buffer);
+            ds_list_delete(global.__builder_refs, i);
         }
     }
 }, true);
