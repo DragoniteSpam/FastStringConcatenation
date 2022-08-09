@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"string_builder","path":"scripts/string_builder/string_builder.yy",},"order":2,},
     {"id":{"name":"string_cat_fast","path":"scripts/string_cat_fast/string_cat_fast.yy",},"order":0,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":14,},
   ],
