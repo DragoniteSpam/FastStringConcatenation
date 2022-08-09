@@ -18,4 +18,18 @@ function StringBuilder(text = "") constructor {
         buffer_seek(self.buffer, buffer_seek_relative, -1);
         return output;
     };
+    
+    var ref = weak_ref_create(self);
+    ref.buffer = self.buffer;
+    ds_list_add(global.__builder_refs, ref);
 }
+
+global.__builder_refs = ds_list_create();
+
+call_later(10, time_source_units_seconds, function() {
+    for (var i = ds_list_size(global.__builder_refs) - 1; i >= 0; i++) {
+        if (!weak_ref_alive(global.__builder_refs[i])) {
+            buffer_delete(global.__builder_refs[i].buffer);
+        }
+    }
+}, true);
